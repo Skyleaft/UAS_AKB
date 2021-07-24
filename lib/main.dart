@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       designSize: Size(375, 812),
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "UTS AKB - Milzan Malik",
+        title: "Project LogBook Management",
         theme: ThemeData(
           scaffoldBackgroundColor: Constants.scaffoldBackgroundColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,

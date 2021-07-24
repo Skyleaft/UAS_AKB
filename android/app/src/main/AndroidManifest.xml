@@ -2,7 +2,7 @@
     package="com.mzstudio.tugaspert11">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="Tugas API"
+        android:label="Project LogBook Management"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
