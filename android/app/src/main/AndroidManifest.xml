@@ -1,8 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mzstudio.tugaspert11">
-    <uses-permission android:name="android.permission.INTERNET" />
+    package="com.mzstudio.logbook_management">
    <application
-        android:label="Project LogBook Management"
+        android:label="logbook_management"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

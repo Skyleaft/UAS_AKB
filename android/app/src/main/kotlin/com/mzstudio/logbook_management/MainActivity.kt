@@ -1,4 +1,4 @@
-package com.mzstudio.tugaspert11
+package com.mzstudio.logbook_management
 
 import io.flutter.embedding.android.FlutterActivity
 
