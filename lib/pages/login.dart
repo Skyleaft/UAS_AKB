@@ -81,67 +81,49 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-          height: double.infinity,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-            image: AssetImage('assets/images/background-dark.png'),
-            fit: BoxFit.fill,
-          )),
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                FadeAnimation(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+            child: Column(children: <Widget>[
+          Stack(
+            children: [
+              Positioned(
+                child: FadeAnimation(
                   1,
                   Container(
-                    height: 400,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                      image: AssetImage('assets/images/Vector2.png'),
-                      fit: BoxFit.fill,
-                    )),
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                            image: AssetImage('assets/images/Vector1.png'),
-                            fit: BoxFit.fill,
-                          )),
-                        ),
-                        Positioned(
-                          child: Center(
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: 100),
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/logo_unikom.png'))),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          child: Container(
-                            margin: EdgeInsets.only(top: 100),
-                            child: Center(
-                              child: Text(
-                                "Log Book Management\n System 2021",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                    height: 600,
+                    child: Align(
+                        alignment: Alignment.topRight,
+                        child: Image.asset('assets/images/Vector.png')),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(30.0),
+              ),
+              Positioned(
+                top: 50,
+                left: 0,
+                right: 0,
+                child: FadeAnimation(
+                  1,
+                  Container(
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: Image.asset('assets/images/logo-lb.png')),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 200,
+                child: FadeAnimation(
+                  1,
+                  Container(
+                    child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Image.asset('assets/images/Vector2.png')),
+                  ),
+                ),
+              ),
+              Positioned(
+                child: Padding(
+                  padding: EdgeInsets.all(30),
                   child: Column(
                     children: <Widget>[
                       FadeAnimation(
@@ -208,19 +190,12 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         height: 20,
                       ),
-                      FadeAnimation(
-                          1.5,
-                          Text(
-                            "Logout",
-                            style: TextStyle(
-                                color: Color.fromRGBO(143, 148, 251, 1)),
-                          )),
                     ],
                   ),
                 ),
-              ],
-            ),
-          )),
-    );
+              )
+            ],
+          ),
+        ])));
   }
 }
