@@ -9,7 +9,7 @@ class AuthServices extends ChangeNotifier {
   String get errorMessage => _errorMessage;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  Future Register(String email, String password) async {
+  Future register(String email, String password) async {
     setLoading(true);
     try {
       UserCredential authResult = await firebaseAuth
@@ -27,7 +27,7 @@ class AuthServices extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future Login(String email, String password) async {
+  Future login(String email, String password) async {
     setLoading(true);
     try {
       UserCredential authResult = await firebaseAuth.signInWithEmailAndPassword(
@@ -43,6 +43,10 @@ class AuthServices extends ChangeNotifier {
       setMessage(e.message);
     }
     notifyListeners();
+  }
+
+  Future logout() async {
+    await firebaseAuth.signOut();
   }
 
   void setLoading(val) {
