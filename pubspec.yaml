@@ -42,6 +42,11 @@ dependencies:
   sqflite: ^2.0.0+3
   flutter_web_browser: ^0.14.0
   flutter_launcher_icons: ^0.9.1
+  firebase_core: ^1.4.0
+  cloud_firestore: ^2.4.0
+  firebase_messaging: ^10.0.4
+  firebase_auth: ^3.0.1
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

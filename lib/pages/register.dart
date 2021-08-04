@@ -5,12 +5,12 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'dart:async';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class Login extends StatefulWidget {
+class Register extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   final RoundedLoadingButtonController _btnController2 =
       RoundedLoadingButtonController();
 
@@ -189,7 +189,7 @@ class _LoginState extends State<Login> {
                           controller: _btnController2,
                           onPressed: () => _doSomething(_btnController2),
                           borderRadius: 8,
-                          child: Text('Login',
+                          child: Text('Register',
                               style: TextStyle(color: Colors.white)),
                         ),
                       ),
@@ -201,7 +201,7 @@ class _LoginState extends State<Login> {
                         MaterialButton(
                           onPressed: () {},
                           child: Text(
-                            "Register",
+                            "Login",
                             style: TextStyle(
                                 color: Color.fromRGBO(143, 148, 251, 1)),
                           ),
