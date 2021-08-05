@@ -228,7 +228,7 @@ class _RegisterState extends State<Register> {
           Container(
             height: 50,
             child: Align(
-              alignment: Alignment(-1, 1),
+              alignment: Alignment(0, 1),
               child: Container(
                 height: 30,
                 child: Image.asset('assets/images/logo-mz3.png'),

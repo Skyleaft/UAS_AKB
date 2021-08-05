@@ -4,6 +4,8 @@ import 'package:logbook_management/pages/Authentication/login.dart';
 import 'package:logbook_management/pages/home.dart';
 import 'package:provider/provider.dart';
 
+import 'Authentication/authentication.dart';
+
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -11,10 +13,7 @@ class Wrapper extends StatelessWidget {
     if (user != null) {
       return Home();
     } else {
-      return Login();
+      return Authentication();
     }
-    return Container(
-      child: null,
-    );
   }
 }

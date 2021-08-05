@@ -1,10 +1,13 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:logbook_management/pages/setting.dart';
 import 'package:logbook_management/pages/showdata.dart';
+import 'package:logbook_management/services/auth_services.dart';
 import 'package:logbook_management/utils/constants.dart';
 import 'package:logbook_management/pages/adddata.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -27,8 +30,27 @@ class _HomeState extends State<Home> {
     });
   }
 
+  String checkDisplayName(var _user) {
+    var finalDisplayName;
+    if (_user.displayName == null) {
+      finalDisplayName = _user.email;
+    } else {
+      finalDisplayName = _user.displayName;
+    }
+    return finalDisplayName;
+  }
+
+  bool getImageUser(var _user) {
+    if (_user.photoURL != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentUser = FirebaseAuth.instance.currentUser;
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Constants.scaffoldBackgroundColor,
@@ -99,7 +121,7 @@ class _HomeState extends State<Home> {
                                         ),
                                   ),
                                   TextSpan(
-                                    text: "Admin",
+                                    text: checkDisplayName(currentUser),
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline6
@@ -123,11 +145,17 @@ class _HomeState extends State<Home> {
                                       spreadRadius: 2)
                                 ],
                               ),
-                              child: CircleAvatar(
-                                radius: 30.0,
-                                backgroundImage:
-                                    AssetImage('assets/images/ppall(3).jpg'),
-                              ),
+                              child: getImageUser(currentUser)
+                                  ? CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage:
+                                          NetworkImage(currentUser.photoURL),
+                                    )
+                                  : CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage: AssetImage(
+                                          'assets/images/ppall(3).jpg'),
+                                    ),
                             ),
                           ],
                         )

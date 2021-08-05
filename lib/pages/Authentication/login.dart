@@ -19,6 +19,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final RoundedLoadingButtonController _btnController2 =
       RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _btnController3 =
+      RoundedLoadingButtonController();
 
   Future<void> _showMyDialog(String _tittle, String _msg) async {
     return showDialog<void>(
@@ -50,9 +52,20 @@ class _LoginState extends State<Login> {
   final cusername = TextEditingController();
   final cpassword = TextEditingController();
 
+  String checkDisplayName(var _user) {
+    var finalDisplayName;
+    if (_user.displayName == null) {
+      finalDisplayName = _user.email;
+    } else {
+      finalDisplayName = _user.displayName;
+    }
+    return finalDisplayName;
+  }
+
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<AuthServices>(context);
+    final currentUser = FirebaseAuth.instance.currentUser;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -92,6 +105,61 @@ class _LoginState extends State<Login> {
                       alignment: Alignment.topLeft,
                       child: Image.asset('assets/images/Vector2.png'),
                     ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 300,
+                left: 35,
+                right: 35,
+                child: FadeAnimation(
+                  1.5,
+                  OutlineButton(
+                    splashColor: Colors.grey,
+                    onPressed: () async {
+                      await loginProvider.loginWithGoogle();
+                      if (loginProvider.errorMessage != null) {
+                        _showMyDialog("Peringatan", loginProvider.errorMessage);
+                      } else {
+                        replaceScreen(context, "/Home");
+                        Fluttertoast.showToast(
+                            msg:
+                                "Selamat Datang Kembali ${checkDisplayName(currentUser)}",
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            fontSize: 16.0);
+                      }
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40)),
+                    highlightElevation: 0,
+                    borderSide: BorderSide(color: Colors.grey),
+                    child: loginProvider.isLoading
+                        ? CircularProgressIndicator()
+                        : Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Image(
+                                    image: AssetImage(
+                                        "assets/images/google_logo.png"),
+                                    height: 28.0),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'Sign in with Google',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                   ),
                 ),
               ),
@@ -173,7 +241,8 @@ class _LoginState extends State<Login> {
                                 _btnController2.success();
                                 replaceScreen(context, "/Home");
                                 Fluttertoast.showToast(
-                                    msg: "Selamat Datang Kembali Admin",
+                                    msg:
+                                        "Selamat Datang Kembali ${checkDisplayName(currentUser)}",
                                     toastLength: Toast.LENGTH_LONG,
                                     gravity: ToastGravity.CENTER,
                                     timeInSecForIosWeb: 1,
@@ -215,7 +284,7 @@ class _LoginState extends State<Login> {
           Container(
             height: 50,
             child: Align(
-              alignment: Alignment(-1, 1),
+              alignment: Alignment(0, 1),
               child: Container(
                 height: 30,
                 child: Image.asset('assets/images/logo-mz3.png'),

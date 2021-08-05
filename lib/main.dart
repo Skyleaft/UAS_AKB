@@ -6,6 +6,7 @@ import 'package:logbook_management/pages/detailmhs.dart';
 import 'package:logbook_management/pages/home.dart';
 import 'package:logbook_management/pages/Authentication/login.dart';
 import 'package:logbook_management/pages/Authentication/authentication.dart';
+import 'package:logbook_management/pages/wrapper.dart';
 import 'package:logbook_management/utils/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -92,7 +93,7 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case "/":
       return MaterialPageRoute(builder: (BuildContext context) {
-        return Authentication();
+        return Wrapper();
       });
     case "/Home":
       return MaterialPageRoute(builder: (BuildContext context) {
@@ -110,9 +111,13 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (BuildContext context) {
         return Login();
       });
-    default:
+    case "/Authentication":
       return MaterialPageRoute(builder: (BuildContext context) {
         return Authentication();
+      });
+    default:
+      return MaterialPageRoute(builder: (BuildContext context) {
+        return Wrapper();
       });
   }
 }

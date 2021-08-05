@@ -7,41 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1092286005833:android:417835b4a57dd3c93c7598",
+        "mobilesdk_app_id": "1:1092286005833:android:9f80f219e5ef48963c7598",
         "android_client_info": {
           "package_name": "com.mzstudio.logbook_management"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1092286005833-tn7me1jroqkgmluatasmt867ahhpk9g9.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAFtfpDeD7KRciPL1vdAfC2uDgc3cKapOs"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1092286005833-tn7me1jroqkgmluatasmt867ahhpk9g9.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1092286005833:android:975ed116fadd5fa23c7598",
-        "android_client_info": {
-          "package_name": "com.mzstudio.logmain"
-        }
-      },
-      "oauth_client": [
+          "client_id": "1092286005833-52akfs5924atbvgic8qehfutq5ooo7ld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mzstudio.logbook_management",
+            "certificate_hash": "0a33ca535c86a1bb27c01a7f009975d95ac6f31c"
+          }
+        },
         {
           "client_id": "1092286005833-tn7me1jroqkgmluatasmt867ahhpk9g9.apps.googleusercontent.com",
           "client_type": 3

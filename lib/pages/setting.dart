@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:logbook_management/services/auth_services.dart';
 import 'package:logbook_management/utils/constants.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:logbook_management/utils/helper.dart';
 import 'package:logbook_management/widget/profileitem.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
+import 'package:provider/provider.dart';
 
 class Setting extends StatelessWidget {
   const Setting({Key key}) : super(key: key);
@@ -177,6 +180,7 @@ class SocialIcon extends StatelessWidget {
 class ProfileListItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<AuthServices>(context);
     return Column(
       children: <Widget>[
         ProfileListItem(
@@ -191,10 +195,16 @@ class ProfileListItems extends StatelessWidget {
           icon: FlutterIcons.help_box_mco,
           text: 'Help & Support',
         ),
-        ProfileListItem(
-          icon: FlutterIcons.sign_out_faw,
-          text: 'Logout',
-        ),
+        InkWell(
+          onTap: () {
+            loginProvider.logout();
+            replaceScreen(context, '/Authentication');
+          },
+          child: ProfileListItem(
+            icon: FlutterIcons.sign_out_faw,
+            text: 'Logout',
+          ),
+        )
       ],
     );
   }
