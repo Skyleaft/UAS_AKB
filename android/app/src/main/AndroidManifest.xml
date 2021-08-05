@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mzstudio.logbook_management">
    <application
+        android:name=".Application"
         android:label="LogBook Management"
         android:icon="@mipmap/launcher_icon">
         <activity

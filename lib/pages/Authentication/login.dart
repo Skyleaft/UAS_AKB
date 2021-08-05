@@ -7,6 +7,17 @@ import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'dart:async';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'high_importance_channel', // id
+    'High Importance Notifications', // title
+    'This channel is used for important notifications.', // description
+    importance: Importance.high,
+    playSound: true);
 
 class Login extends StatefulWidget {
   final Function toggleScreen;
@@ -280,6 +291,22 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ],
+          ),
+          ElevatedButton(
+            onPressed: () {
+              flutterLocalNotificationsPlugin.show(
+                  0,
+                  "Testing ",
+                  "How you doin ?",
+                  NotificationDetails(
+                      android: AndroidNotificationDetails(
+                          channel.id, channel.name, channel.description,
+                          importance: Importance.high,
+                          color: Colors.blue,
+                          playSound: true,
+                          icon: '@mipmap/launcher_icon')));
+            },
+            child: Text("Test"),
           ),
           Container(
             height: 50,
