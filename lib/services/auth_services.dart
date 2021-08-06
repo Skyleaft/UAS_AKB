@@ -68,7 +68,7 @@ class AuthServices extends ChangeNotifier {
       setMessage("No Internet, Please Connect to the Internet");
     } catch (e) {
       setLoading(false);
-      setMessage('error di : ${e.message}');
+      setMessage(e.message);
     }
     notifyListeners();
   }

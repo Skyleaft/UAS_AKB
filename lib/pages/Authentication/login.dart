@@ -30,8 +30,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final RoundedLoadingButtonController _btnController2 =
       RoundedLoadingButtonController();
-  final RoundedLoadingButtonController _btnController3 =
-      RoundedLoadingButtonController();
+
 
   Future<void> _showMyDialog(String _tittle, String _msg) async {
     return showDialog<void>(
@@ -125,8 +124,7 @@ class _LoginState extends State<Login> {
                 right: 35,
                 child: FadeAnimation(
                   1.5,
-                  OutlineButton(
-                    splashColor: Colors.grey,
+                  OutlinedButton(
                     onPressed: () async {
                       await loginProvider.loginWithGoogle();
                       if (loginProvider.errorMessage != null) {
@@ -142,10 +140,6 @@ class _LoginState extends State<Login> {
                             fontSize: 16.0);
                       }
                     },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40)),
-                    highlightElevation: 0,
-                    borderSide: BorderSide(color: Colors.grey),
                     child: loginProvider.isLoading
                         ? CircularProgressIndicator()
                         : Padding(
@@ -292,22 +286,7 @@ class _LoginState extends State<Login> {
               ),
             ],
           ),
-          ElevatedButton(
-            onPressed: () {
-              flutterLocalNotificationsPlugin.show(
-                  0,
-                  "Testing ",
-                  "How you doin ?",
-                  NotificationDetails(
-                      android: AndroidNotificationDetails(
-                          channel.id, channel.name, channel.description,
-                          importance: Importance.high,
-                          color: Colors.blue,
-                          playSound: true,
-                          icon: '@mipmap/launcher_icon')));
-            },
-            child: Text("Test"),
-          ),
+
           Container(
             height: 50,
             child: Align(

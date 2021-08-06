@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logbook_management/models/mahasiswa.dart';
 import 'package:logbook_management/utils/constants.dart';
@@ -6,74 +8,29 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:logbook_management/db/db_mhs.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-var txtnim = TextEditingController();
-var txtnama = TextEditingController();
-var txtkelas = TextEditingController();
-var txtprodi = TextEditingController();
+var txtKegiatan = TextEditingController();
+var tanggal = TextEditingController();
+var txtcomplitation = TextEditingController();
 
 void clearText() {
-  txtnim.text = "";
-  txtnama.text = "";
-  txtkelas.text = "";
-  txtprodi.text = "";
+  txtKegiatan.text = "";
+  tanggal.text = "";
+  txtcomplitation.text = "";
 }
 
-bool validate() {
-  if (txtnim.text == "" ||
-      txtnama.text == "" ||
-      txtkelas.text == "" ||
-      txtprodi.text == "") {
-    Fluttertoast.showToast(
-        msg: "Data Masih belum lengkap",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        fontSize: 16.0);
-    return false;
-  } else {
-    return true;
-  }
-}
-
-var checkstats = false;
 var _btnController2 = RoundedLoadingButtonController();
-void _doSomething(RoundedLoadingButtonController controller) async {
-  Timer(Duration(seconds: 1), () {
-    if (validate()) {
-      saveData();
-      controller.success();
-      Fluttertoast.showToast(
-          msg: "Data Berhasil Disimpan",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          fontSize: 16.0);
-      clearText();
-    } else {
-      controller.error();
-    }
-    Timer(Duration(seconds: 2), () {
-      _btnController2.reset();
-    });
-  });
-}
-
-Future saveData() async {
-  final mhs = Mahasiswa(
-    nim: txtnim.text,
-    namaLengkap: txtnama.text,
-    kelas: txtkelas.text,
-    prodi: txtprodi.text,
-  );
-  await MhsDatabase.instance.create(mhs);
-}
 
 class AddData extends StatelessWidget {
   const AddData({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference data = firestore.collection('data');
+
     return Container(
       child: Container(
         width: double.infinity,
@@ -90,7 +47,7 @@ class AddData extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Tambah Data Mahasiswa",
+              "Insert Log Book",
               style: Theme.of(context).textTheme.headline6.copyWith(
                     color: Color.fromRGBO(74, 77, 84, 1),
                     fontSize: 16.0,
@@ -101,13 +58,25 @@ class AddData extends StatelessWidget {
               height: 15.0,
             ),
             TextField(
-              controller: txtnim,
+              controller: txtKegiatan,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'NIM',
+                labelText: 'Kegiatan',
                 counterText: "",
               ),
-              maxLength: 20,
+              maxLength: 40,
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            TextField(
+              controller: txtcomplitation,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Complitation %',
+                counterText: "",
+              ),
+              maxLength: 2,
               keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -117,37 +86,27 @@ class AddData extends StatelessWidget {
               height: 10.0,
             ),
             TextField(
-              controller: txtnama,
+              readOnly: true,
+              controller: tanggal,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Nama Lengkap',
+                labelText: 'Tanggal',
                 counterText: "",
               ),
-              maxLength: 40,
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            TextField(
-              controller: txtkelas,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Kelas',
-                counterText: "",
-              ),
+              onTap: () {
+                DatePicker.showDatePicker(context,
+                    showTitleActions: true,
+                    minTime: DateTime(2016, 1, 1),
+                    onChanged: (date) {
+                      String formtgl = date.day.toString()+"-"+date.month.toString()+"-"+date.year.toString();
+                      tanggal.text = formtgl;
+                }, onConfirm: (date) {
+                  String formtgl = date.day.toString()+"-"+date.month.toString()+"-"+date.year.toString();
+                  tanggal.text = formtgl;
+                  print('confirm $date');
+                }, currentTime: DateTime.now());
+              },
               maxLength: 20,
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            TextField(
-              controller: txtprodi,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Prodi',
-                counterText: "",
-              ),
-              maxLength: 25,
             ),
             SizedBox(
               height: 15.0,
@@ -157,7 +116,17 @@ class AddData extends StatelessWidget {
               color: Constants.primaryColor,
               successColor: Colors.green[800],
               controller: _btnController2,
-              onPressed: () => _doSomething(_btnController2),
+              onPressed: () {
+                data.add({
+                  'kegiatan': txtKegiatan.text,
+                  'complitation': txtcomplitation.text,
+                  'tanggal': tanggal.text,
+                  'uid': currentUser.uid,
+                  'by': currentUser.displayName,
+                });
+                clearText();
+                _btnController2.reset();
+              },
               borderRadius: 6,
               child: Text('Simpan Data', style: TextStyle(color: Colors.white)),
             ),

@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:logbook_management/pages/setting.dart';
 import 'package:logbook_management/pages/showdata.dart';
-import 'package:logbook_management/services/auth_services.dart';
 import 'package:logbook_management/utils/constants.dart';
 import 'package:logbook_management/pages/adddata.dart';
-import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   @override
