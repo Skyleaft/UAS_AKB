@@ -31,7 +31,6 @@ class _LoginState extends State<Login> {
   final RoundedLoadingButtonController _btnController2 =
       RoundedLoadingButtonController();
 
-
   Future<void> _showMyDialog(String _tittle, String _msg) async {
     return showDialog<void>(
       context: context,
@@ -286,7 +285,6 @@ class _LoginState extends State<Login> {
               ),
             ],
           ),
-
           Container(
             height: 50,
             child: Align(

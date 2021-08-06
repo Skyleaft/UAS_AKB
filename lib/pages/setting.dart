@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logbook_management/services/auth_services.dart';
 import 'package:logbook_management/utils/constants.dart';
@@ -53,6 +54,14 @@ class Setting extends StatelessWidget {
   }
 }
 
+bool getImageUser(var _user) {
+  if (_user.photoURL != null) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 BoxDecoration avatarDecoration = BoxDecoration(
     shape: BoxShape.circle,
     color: Constants.primaryColor,
@@ -72,19 +81,22 @@ BoxDecoration avatarDecoration = BoxDecoration(
 class AvatarImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final currentUser = FirebaseAuth.instance.currentUser;
     return Container(
-      width: 150,
-      height: 150,
-      padding: EdgeInsets.all(8),
+      width: 110,
+      height: 110,
+      padding: EdgeInsets.all(5),
       decoration: avatarDecoration,
       child: Container(
         decoration: avatarDecoration,
-        padding: EdgeInsets.all(3),
+        padding: EdgeInsets.all(2),
         child: Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: AssetImage('assets/images/ppall(3).jpg'),
+              image: getImageUser(currentUser)
+                  ? NetworkImage(currentUser.photoURL)
+                  : AssetImage('assets/images/ppall(3).jpg'),
             ),
           ),
         ),

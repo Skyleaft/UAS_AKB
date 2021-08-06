@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:logbook_management/pages/setting.dart';
+import 'package:logbook_management/pages/show_all_data.dart';
 import 'package:logbook_management/pages/showdata.dart';
 import 'package:logbook_management/utils/constants.dart';
 import 'package:logbook_management/pages/adddata.dart';
@@ -18,6 +19,7 @@ class _HomeState extends State<Home> {
 
   static List<Widget> _widgetOptions = <Widget>[
     ShowData(),
+    ShowAllData(),
     AddData(),
     Setting(),
   ];
@@ -60,14 +62,19 @@ class _HomeState extends State<Home> {
             color: activeIndex == 0 ? Colors.white : Color(0xFFC8C9CB),
           ),
           Icon(
-            FlutterIcons.plus_ant,
+            FlutterIcons.database_ant,
             size: 30.0,
             color: activeIndex == 1 ? Colors.white : Color(0xFFC8C9CB),
           ),
           Icon(
-            FlutterIcons.setting_ant,
+            FlutterIcons.plus_ant,
             size: 30.0,
             color: activeIndex == 2 ? Colors.white : Color(0xFFC8C9CB),
+          ),
+          Icon(
+            FlutterIcons.setting_ant,
+            size: 30.0,
+            color: activeIndex == 3 ? Colors.white : Color(0xFFC8C9CB),
           ),
         ],
         onTap: _onItemTapped,

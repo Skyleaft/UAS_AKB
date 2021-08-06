@@ -6,12 +6,12 @@ import 'package:logbook_management/pages/detail_data.dart';
 import 'package:logbook_management/widget/cardData.dart';
 import 'dart:async';
 
-class ShowData extends StatefulWidget {
+class ShowAllData extends StatefulWidget {
   @override
-  _ShowDataState createState() => _ShowDataState();
+  _ShowAllDataState createState() => _ShowAllDataState();
 }
 
-class _ShowDataState extends State<ShowData> {
+class _ShowAllDataState extends State<ShowAllData> {
   List<Mahasiswa> mahasiswa = [];
   bool isLoading = false;
 
@@ -45,7 +45,7 @@ class _ShowDataState extends State<ShowData> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Log Kegiatan Saya",
+                  "Semua Log Harian",
                   style: TextStyle(
                     color: Color.fromRGBO(19, 22, 33, 1),
                     fontSize: 18.0,
@@ -63,10 +63,7 @@ class _ShowDataState extends State<ShowData> {
             scrollDirection: Axis.vertical,
             children: [
               StreamBuilder(
-                  stream: data
-                      .where("uid", isEqualTo: currentUser.uid)
-                      .orderBy('tanggal')
-                      .snapshots(),
+                  stream: data.orderBy('tanggal').snapshots(),
                   builder: (_, snapshot) {
                     if (snapshot.hasData) {
                       return Column(
@@ -76,19 +73,7 @@ class _ShowDataState extends State<ShowData> {
                                   e.data()['complitation'],
                                   e.data()['tanggal'],
                                   e.data()["by"],
-                                  onBuka: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => DetailData(
-                                              id: e.id,
-                                              by: e.data()["by"],
-                                              kegiatan: e.data()["kegiatan"],
-                                              complitation:
-                                                  e.data()["complitation"],
-                                              tgl: e.data()["tanggal"])),
-                                    );
-                                  },
+                                  onBuka: () {},
                                 ))
                             .toList(),
                       );

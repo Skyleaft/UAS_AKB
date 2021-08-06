@@ -31,9 +31,10 @@ class CardData extends StatelessWidget {
   final String judul;
   final String complitation;
   final String tanggal;
+  final String by;
   final Function onBuka;
 
-  CardData(this.judul, this.complitation, this.tanggal, {this.onBuka});
+  CardData(this.judul, this.complitation, this.tanggal, this.by, {this.onBuka});
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +76,7 @@ class CardData extends StatelessWidget {
                       ),
                       Text(
                         judul,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: Constants.primaryColor,
                           fontSize: 18.0,
@@ -84,8 +86,17 @@ class CardData extends StatelessWidget {
                       SizedBox(
                         height: 10.0,
                       ),
-                      textRow("Complitation %", complitation),
-                      textRow("Tanggal", tanggal)
+                      textRow("By ", by),
+                      Row(
+                        children: [
+                          textRow("Complitation %", complitation + " %"),
+                          Spacer(),
+                          Container(
+                            margin: EdgeInsets.only(right: 20),
+                            child: textRow("Tanggal ", tanggal),
+                          )
+                        ],
+                      )
                     ],
                   ),
                 ),

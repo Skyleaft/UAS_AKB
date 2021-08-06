@@ -18,12 +18,13 @@ class DetailData extends StatelessWidget {
   final String tgl;
   final String by;
 
-  DetailData({Key key, this.id,this.by,this.kegiatan,this.complitation,this.tgl}) : super(key: key);
+  DetailData(
+      {Key key, this.id, this.by, this.kegiatan, this.complitation, this.tgl})
+      : super(key: key);
 
   var txtKegiatan = TextEditingController();
   var tanggal = TextEditingController();
   var txtcomplitation = TextEditingController();
-
 
   void getData() {
     txtKegiatan.text = this.kegiatan;
@@ -188,7 +189,7 @@ class DetailData extends StatelessWidget {
                               labelText: 'Complitation %',
                               counterText: "",
                             ),
-                            maxLength: 2,
+                            maxLength: 3,
                             keyboardType: TextInputType.number,
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.allow(
@@ -212,16 +213,16 @@ class DetailData extends StatelessWidget {
                                   minTime: DateTime(2016, 1, 1),
                                   onChanged: (date) {
                                 String formtgl = date.day.toString() +
-                                    "-" +
+                                    "/" +
                                     date.month.toString() +
-                                    "-" +
+                                    "/" +
                                     date.year.toString();
                                 tanggal.text = formtgl;
                               }, onConfirm: (date) {
                                 String formtgl = date.day.toString() +
-                                    "-" +
+                                    "/" +
                                     date.month.toString() +
-                                    "-" +
+                                    "/" +
                                     date.year.toString();
                                 tanggal.text = formtgl;
                                 print('confirm $date');
@@ -248,7 +249,11 @@ class DetailData extends StatelessWidget {
                               primary: Constants.primaryColor,
                             ),
                             onPressed: () {
-                              data.doc(this.id).update({'kegiatan':txtKegiatan.text,'complitation':txtcomplitation.text,'tanggal':tanggal.text});
+                              data.doc(this.id).update({
+                                'kegiatan': txtKegiatan.text,
+                                'complitation': txtcomplitation.text,
+                                'tanggal': tanggal.text
+                              });
                               onClose();
                             },
                             child: const Text('Ubah'),
